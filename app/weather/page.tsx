@@ -1,14 +1,14 @@
+export const dynamic = 'force-dynamic';
+export const runtime = 'edge';
+
 import { getWeather } from '../lib/getWeather';
 import WeatherCard from '../components/WeatherCard';
 import BackButton from '../components/BackButton';
 
-type PageProps = {
-  params: { [key: string]: string | string[] };
-  searchParams: { [key: string]: string | string[] | undefined };
-};
-
-export default async function WeatherPage({ searchParams }: PageProps) {
-  const city = searchParams?.city as string | undefined;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default async function WeatherPage(props: any) {
+  const cityParam = props.searchParams?.city;
+  const city = Array.isArray(cityParam) ? cityParam[0] : cityParam;
 
   if (!city) {
     return (
@@ -28,7 +28,7 @@ export default async function WeatherPage({ searchParams }: PageProps) {
         <WeatherCard data={data} />
       </main>
     );
-  } catch (error: unknown) {
+  } catch (error) {
     const errorMessage =
       error instanceof Error ? error.message : 'Something went wrong';
 
