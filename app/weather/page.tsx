@@ -3,13 +3,12 @@ import WeatherCard from '../components/WeatherCard';
 import BackButton from '../components/BackButton';
 
 type PageProps = {
-  searchParams?: {
-    city?: string;
-  };
+  params: { [key: string]: string | string[] };
+  searchParams: { [key: string]: string | string[] | undefined };
 };
 
 export default async function WeatherPage({ searchParams }: PageProps) {
-  const city = searchParams?.city;
+  const city = searchParams?.city as string | undefined;
 
   if (!city) {
     return (
